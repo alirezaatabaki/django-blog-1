@@ -1,5 +1,10 @@
 from django.shortcuts import render
 
+from .models import Article
+
 
 def home(request):
-    return render(request, 'blog/home.html')
+    context = {
+        'articles': Article.objects.filter(status='p').order_by('-publish')
+    }
+    return render(request, 'blog/home.html', context=context)
