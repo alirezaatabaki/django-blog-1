@@ -19,6 +19,7 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
+
 class Article(models.Model):
     STATUS_CHOICES = [
         ('d', 'پیش‌نویس'),
@@ -37,6 +38,7 @@ class Article(models.Model):
     class Meta:
         verbose_name = 'مقاله'
         verbose_name_plural = 'مقاله‌ها'
+        ordering = ['-publish']
 
     def __str__(self):
         return self.title
