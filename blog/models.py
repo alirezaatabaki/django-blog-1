@@ -4,6 +4,21 @@ from django.utils import timezone
 from extensions.utils import jalali_converter
 
 
+class Category(models.Model):
+
+    title = models.CharField(max_length=200, verbose_name='عنوان دسته‌بندی ')
+    slug = models.SlugField(max_length=100, unique=True, verbose_name='اسلاگ')
+    status = models.BooleanField(default=True, verbose_name='آیا نمایش داده شود ؟')
+    position = models.IntegerField(verbose_name='موقعیت')
+
+    class Meta:
+        verbose_name = 'دسته ‌بندی'
+        verbose_name_plural = 'دسته‌ بندی‌ها'
+        ordering = ['position']
+
+    def __str__(self):
+        return self.title
+
 class Article(models.Model):
     STATUS_CHOICES = [
         ('d', 'پیش‌نویس'),
@@ -11,6 +26,7 @@ class Article(models.Model):
     ]
     title = models.CharField(max_length=200, verbose_name='عنوان مقاله')
     slug = models.SlugField(max_length=100, unique=True, verbose_name='اسلاگ')
+    category = models.ManyToManyField(Category, verbose_name='دسته بندی')
     description = models.TextField(verbose_name='متن مقاله')
     thumbnail = models.ImageField(upload_to='images', verbose_name='تصویر')
     publish = models.DateTimeField(default=timezone.now, verbose_name='تاریخ انتشار')
