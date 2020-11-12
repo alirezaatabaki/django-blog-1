@@ -19,3 +19,6 @@ body {
 .pager-button {
     float: left !important;
 }
+.post-subtitle{
+    font-size: 16px;
+}
